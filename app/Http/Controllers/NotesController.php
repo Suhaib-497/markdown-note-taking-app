@@ -27,7 +27,7 @@ class NotesController extends Controller
         // dd($request->all());
         $validator = Validator::make($request->all(), [
             'markdown_text' => 'required|string',
-            'file_path.*' => 'file|max:5120' // allows multiple files
+            'file_path.*' => 'file|max:5120' 
         ]);
 
         if ($validator->fails()) {
@@ -54,7 +54,7 @@ class NotesController extends Controller
                 // process each file
                 $filename = time() . '_' . $file->getClientOriginalName();
                 $path = $file->storeAs('uploads', $filename, 'public');
-
+                
                 $note->files()->create([
                     'file_path' => $path,
                 ]);
@@ -63,7 +63,7 @@ class NotesController extends Controller
             // single file upload
             $filename = time() . '_' . $files->getClientOriginalName();
             $path = $files->storeAs('uploads', $filename, 'public');
-
+        
             $note->files()->create([
                 'file_path' => $path,
             ]);
@@ -82,7 +82,7 @@ class NotesController extends Controller
     public function getData($id)
     {
         $data = Notes::with('files')->find($id);
-
+        
         $markdownText = $data->markdown_text;
         $file = $data->files->pluck('file_path');
 

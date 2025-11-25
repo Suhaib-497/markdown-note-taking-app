@@ -13,7 +13,7 @@ class GrammerChecker
             'text' => $markdownText,
             'language' => 'en-US'
         ]);
-        // dd($response);
+        // dd($response->json());
         $data = '';
         if ($response->successful()) {
             $data = $response->json();
